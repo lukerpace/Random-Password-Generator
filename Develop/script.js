@@ -12,7 +12,7 @@ function writePassword() {
   alert("Generated Password: " + password);
 }
 
-// generates password based on user criteria
+// generates user criteria options for password
 function generatePassword() {
   // Prompt for password criteria
   var length = prompt("Enter the length of the password (between 8 and 128 characters):");
@@ -32,6 +32,27 @@ function generatePassword() {
   }
   // Used to generate the password based on the selected criteria
   var password = generatePasswordBasedOnCriteria(length, includeUppercase, includeLowercase, includeNumbers, includeSpecialCharacters);
+  return password;
+}
+// Function to generate password based on user criteria (pulls the chars and concats them)
+function generatePasswordBasedOnCriteria(length, includeUppercase, includeLowercase, includeNumbers, includeSpecialCharacters) {
+  //Define character sets based on selected criteria
+  var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var lowerCase = "abcdefghijklmnopqrstuvwxyz";
+  var numbers = "0123456789";
+  var symbols = "!@#$%^&*()_-+=";
+  // Create the character set based on selected criteria
+  var allChars = [];
+  if (includeUppercase) allChars = allChars.concat(upperCase.split(''));
+  if (includeLowercase) allChars = allChars.concat(lowerCase.split(''));
+  if (includeNumbers) allChars = allChars.concat(numbers.split(''));
+  if (includeSpecialCharacters) allChars = allChars.concat(symbols.split(''));
+  // Generate the password
+  var password = "";
+  for (var i = 0; i < length; i++) {
+    var randomIndex = Math.floor(Math.random() * allChars.length);
+    password += allChars[randomIndex];
+  }
   return password;
 }
 
